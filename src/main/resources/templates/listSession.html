@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <br>
-        <h1>Sessions  List</h1>
+        <h1>Sessions List</h1>
         <br><br>
         <a class="btn btn-primary" th:href="@{/sessions}">Create New</a>
         <br/><br/>
@@ -23,8 +23,8 @@
             <tbody>
                 <tr th:each="s, state: ${sessions}">
                     <div th:if="${state.size gt 0}">
-                        <td th:utext="${s.fullName}"></td>
-                        <td th:utext="${s.dateOfBirth}"></td>
+                        <td th:utext="${s.name}"></td>
+                        <td th:utext="${s.dob}"></td>
                     </div>
                     <div th:if="${state.size le 0}">
                         No record found

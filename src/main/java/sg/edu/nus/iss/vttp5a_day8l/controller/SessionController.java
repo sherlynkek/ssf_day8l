@@ -22,6 +22,7 @@ public class SessionController {
         return "home";
     }
 
+    @SuppressWarnings("unchecked")
     @PostMapping("/list")
     public String showData(HttpSession session, Model model) {
         List<SessionData> sessions = null;
@@ -43,6 +44,8 @@ public class SessionController {
         return "create";
     }
 
+
+    @SuppressWarnings("unchecked")
     @PostMapping("")
     public String postSessionCreate(@ModelAttribute("session") SessionData entity, HttpSession httpSession, Model model) {
 

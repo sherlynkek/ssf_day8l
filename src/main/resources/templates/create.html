@@ -11,15 +11,15 @@
         <br>
         <h3>Create Session Data</h3>
         <br><br>
-        <form method="post" th:action="@{/sessions}" th:object="${session}">
+        <form method="post" th:action="@{/session}" th:object="${session}">
             <div class="mb-3">
                 <label class="form-label">Full Name</label>
-                <input type="text" class="form-control" name="fullName" th:field="*{fullName}" placeholder="Full Name">
+                <input type="text" class="form-control" name="name" th:field="*{name}" placeholder="Name">
             </div>
 
             <div class="mb-3">
                 <label class="form-label">DOB</label>
-                <input type="date" class="form-control" name="dateOfBirth" th:field="*{dateOfBirth}" placeholder="Birth date">
+                <input type="date" class="form-control" name="dob" th:field="*{dob}" placeholder="Birth date">
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
