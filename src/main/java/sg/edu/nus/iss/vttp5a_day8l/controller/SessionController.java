@@ -1,5 +1,8 @@
 package sg.edu.nus.iss.vttp5a_day8l.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpSession;
+import sg.edu.nus.iss.vttp5a_day8l.model.SessionData;
 
 @Controller
 @RequestMapping("/session")
@@ -19,26 +23,32 @@ public class SessionController {
         return "home";
     }
 
-    @PostMapping("/listSession")
-    public String listSession(@RequestBody MultiValueMap<String, String> entity, HttpSession session, Model model) {
-        String fName = entity.getFirst("fullname");
-        session.setAttribute("myname", fName);
+    @PostMapping("/list")
+    public String showData(HttpSession session, Model model) {
+        List<SessionData> sessions = null;
+        if (session.getAttribute("session") == null) {
+            sessions = new ArrayList<>();
+        }
+        else {
+            sessions = (List<SessionData>) session.getAttribute("session");
+        }
 
-        model.addAttribute("myFullName", fName);
+        model.addAttribute("sessions", sessions);
         return "listSession";
     }
 
-    @GetMapping("/clearSession")
+    @GetMapping("/clear")
     public String clearSession(HttpSession session, Model model) {
         if (session.getAttribute("myname") == null)
             return "redirect:/session/home";
 
         model.addAttribute("myFullName", session.getAttribute("myname"));
-        return "clearSession";
+        return "redirect:/session/home";
     }
 
     @GetMapping("/create")
     public String create(HttpSession session, Model model) {
+        
         return "home";
     }
     
@@ -47,6 +57,6 @@ public class SessionController {
 
         session.invalidate();
 
-        return "redirect:/session/firstpage";
+        return "redirect:/session/home";
     }
 }

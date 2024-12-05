@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
-public class Session {
+public class SessionData {
     @NotEmpty(message = "First name is mandatory")
     @Size(min = 5, max = 60, message = "First name miust be between 5 to 60 characters")
     private String name;
@@ -17,7 +17,11 @@ public class Session {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dob;
     
-    public Session(String name, Date dob) {
+    public SessionData() {
+        
+    }
+
+    public SessionData(String name, Date dob) {
         this.name = name;
         this.dob = dob;
     }
