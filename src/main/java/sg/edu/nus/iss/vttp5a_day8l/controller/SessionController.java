@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,26 +38,34 @@ public class SessionController {
         return "listSession";
     }
 
-    @GetMapping("/clear")
-    public String clearSession(HttpSession session, Model model) {
-        if (session.getAttribute("myname") == null)
-            return "redirect:/session/home";
-
-        model.addAttribute("myFullName", session.getAttribute("myname"));
-        return "redirect:/session/home";
+    @GetMapping("")
+    public String sessionCreate(Model model) {
+        SessionData sessionData = new SessionData();
+        model.addAttribute("session", sessionData);
+        return "create";
     }
 
-    @GetMapping("/create")
-    public String create(HttpSession session, Model model) {
+    @PostMapping("")
+    public String postSessionCreate(@ModelAttribute("session") SessionData entity, HttpSession httpSession, Model model) {
+
+        List<SessionData> sessions = null;
+        if (httpSession.getAttribute("session") == null) {
+            sessions = new ArrayList<>();
+        } else {
+            sessions = (List<SessionData>) httpSession.getAttribute("session");
+        }
+        sessions.add(entity);
         
-        return "home";
+        httpSession.setAttribute("session", sessions);
+        model.addAttribute("sessions", sessions);
+        return "listSession";
     }
     
-    @GetMapping("/reset")
-    public String reset(HttpSession session, Model model) {
+    @GetMapping("/clear")
+    public String clearSession(HttpSession httpSession) {
+        httpSession.removeAttribute("session");
+        httpSession.invalidate();
 
-        session.invalidate();
-
-        return "redirect:/session/home";
+        return "redirect:/sessions/home";
     }
 }
