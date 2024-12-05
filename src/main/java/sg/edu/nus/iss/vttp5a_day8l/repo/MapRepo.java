@@ -1,5 +1,6 @@
 package sg.edu.nus.iss.vttp5a_day8l.repo;
 
+import java.time.Duration;
 import java.util.Map;
 import java.util.Set;
 
@@ -49,5 +50,11 @@ public class MapRepo {
     // day 15 - slide 41
     public Long size(String redisKey) {
         return redisTemplate.opsForHash().size(redisKey);
+    }
+
+    // expire duration
+    public void expire(String redisKey, Integer expireValue) {
+        Duration expireDuration = Duration.ofSeconds(expireValue);
+        redisTemplate.expire(redisKey, expireDuration);
     }
 }
