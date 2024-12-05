@@ -33,7 +33,7 @@ public class SessionController {
             sessions = (List<SessionData>) session.getAttribute("session");
         }
 
-        model.addAttribute("sessions", sessions);
+        model.addAttribute("session", sessions);
         return "listSession";
     }
 
@@ -58,7 +58,7 @@ public class SessionController {
         sessions.add(entity);
         
         httpSession.setAttribute("session", sessions);
-        model.addAttribute("sessions", sessions);
+        model.addAttribute("session", sessions);
         return "listSession";
     }
     
@@ -67,6 +67,6 @@ public class SessionController {
         httpSession.removeAttribute("session");
         httpSession.invalidate();
 
-        return "redirect:/sessions/home";
+        return "redirect:/session/home";
     }
 }
