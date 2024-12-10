@@ -43,7 +43,7 @@ public class Person {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
     public String getPhone() {
         return phone;
     }
@@ -63,5 +63,6 @@ public class Person {
     @Override
     public String toString() {
         return id + "," + fullName + "," + email + "," + phone + "," + date;
-    }    
+    }
+
 }
